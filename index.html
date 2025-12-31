@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP Luxury Transportation | Znojmo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            font-feature-settings: "cv11", "ss01";
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffffff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e5e5;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4d4d4;
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: heroFadeIn 1s ease-out forwards;
+        }
+
+        @keyframes heroFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Info icon animation */
+        .info-icon {
+            animation: pulse-subtle 3s ease-in-out infinite;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        @keyframes pulse-subtle {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.9;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .info-icon:hover {
+            animation: none;
+            transform: scale(1.15);
+            opacity: 1;
+        }
+
+        .info-icon:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="bg-white text-neutral-900 antialiased selection:bg-neutral-900 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="text-lg tracking-tighter font-semibold uppercase">VIP<span class="text-neutral-400">Znojmo</span></a>
+            
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-neutral-500">
+                <a href="#services" class="hover:text-neutral-900 transition-colors" data-i18n="nav.services">Services</a>
+                <a href="#vehicle" class="hover:text-neutral-900 transition-colors" data-i18n="nav.vehicle">Vehicle</a>
+                <a href="#pricing" class="hover:text-neutral-900 transition-colors" data-i18n="nav.pricing">Pricing</a>
+                <a href="#contact" class="hover:text-neutral-900 transition-colors" data-i18n="nav.contact">Contact</a>
+            </div>
+
+            <div class="hidden md:flex items-center space-x-4">
+                <!-- Language Switcher -->
+                <div class="relative">
+                    <button id="languageButton" class="flex items-center space-x-1 px-3 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 transition-colors">
+                        <span id="currentLanguage">EN</span>
+                        <span class="iconify" data-icon="lucide:chevron-down" data-width="16"></span>
+                    </button>
+                    <div id="languageMenu" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-neutral-200 py-1">
+                        <button class="w-full px-4 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50 transition-colors" onclick="switchLanguage('EN', 'English')">English</button>
+                        <button class="w-full px-4 py-2 text-left text-sm text-neutral-700 hover:bg-neutral-50 transition-colors" onclick="switchLanguage('CZ', 'Czech')">Czech</button>
+                    </div>
+                </div>
+
+                <button onclick="scrollToSectionCustom('contact', -80)" class="inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-white transition-all bg-neutral-900 rounded-full hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2" data-i18n="nav.bookRide">
+                    Book a Ride
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuButton" class="md:hidden p-2 text-neutral-600 hover:text-neutral-900 transition-colors">
+                <span id="menuIcon" class="iconify" data-icon="lucide:menu" data-width="24" data-height="24"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden fixed top-20 left-0 right-0 bg-white border-b border-neutral-100 shadow-lg animate-in slide-in-from-top duration-300">
+            <div class="max-w-7xl mx-auto px-6 py-4 space-y-3">
+                <a href="#services" onclick="closeMobileMenu()" class="block px-4 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition-colors" data-i18n="nav.services">Services</a>
+                <a href="#vehicle" onclick="closeMobileMenu()" class="block px-4 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition-colors" data-i18n="nav.vehicle">Vehicle</a>
+                <a href="#pricing" onclick="closeMobileMenu()" class="block px-4 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition-colors" data-i18n="nav.pricing">Pricing</a>
+                <a href="#contact" onclick="closeMobileMenu()" class="block px-4 py-2 text-sm font-medium text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition-colors" data-i18n="nav.contact">Contact</a>
+                
+                <div class="border-t border-neutral-100 pt-4">
+                    <!-- Language Switcher Mobile -->
+                    <p class="px-4 py-2 text-sm font-medium text-neutral-700 mb-3" data-i18n="nav.languages">Languages</p>
+                    <div class="flex gap-3 px-4">
+                        <button onclick="switchLanguage('EN', 'English'); closeMobileMenu();" class="w-12 h-12 rounded-full border-2 border-neutral-300 hover:border-neutral-900 bg-white hover:bg-neutral-50 flex items-center justify-center font-medium text-sm text-neutral-600 hover:text-neutral-900 transition-all duration-200">
+                            EN
+                        </button>
+                        <button onclick="switchLanguage('CZ', 'Czech'); closeMobileMenu();" class="w-12 h-12 rounded-full border-2 border-neutral-300 hover:border-neutral-900 bg-white hover:bg-neutral-50 flex items-center justify-center font-medium text-sm text-neutral-600 hover:text-neutral-900 transition-all duration-200">
+                            CZ
+                        </button>
+                    </div>
+                </div>
+
+                <div class="border-t border-neutral-100 pt-3">
+                    <button onclick="scrollToSectionCustom('contact', -80); closeMobileMenu();" class="w-full inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white transition-all bg-neutral-900 rounded-full hover:bg-neutral-800" data-i18n="nav.bookRide">
+                        Book a Ride
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Backdrop -->
+        <div id="mobileMenuBackdrop" class="hidden fixed inset-0 top-20 bg-black/30 backdrop-blur-sm z-40 md:hidden" onclick="closeMobileMenu()"></div>
+    </nav>
+
+    <script>
+        // Language switcher functionality
+        const languageButton = document.getElementById('languageButton');
+        const languageMenu = document.getElementById('languageMenu');
+        const currentLanguage = document.getElementById('currentLanguage');
+        let translations = {};
+        let currentLang = 'en';
+
+        // Load translations
+        fetch('translations.json')
+            .then(response => response.json())
+            .then(data => {
+                translations = data;
+            })
+            .catch(error => console.error('Error loading translations:', error));
+
+        languageButton.addEventListener('click', () => {
+            languageMenu.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!languageButton.contains(e.target) && !languageMenu.contains(e.target)) {
+                languageMenu.classList.add('hidden');
+            }
+        });
+
+        function switchLanguage(code, name) {
+            currentLanguage.textContent = code;
+            languageMenu.classList.add('hidden');
+            currentLang = code.toLowerCase();
+            applyTranslations();
+        }
+
+        // Mobile Menu functionality
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuBackdrop = document.getElementById('mobileMenuBackdrop');
+        const menuIcon = document.getElementById('menuIcon');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuBackdrop.classList.toggle('hidden');
+        });
+
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+            mobileMenuBackdrop.classList.add('hidden');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBackdrop.classList.add('hidden');
+            }
+        });
+
+        function applyTranslations() {
+            const lang = translations[currentLang];
+            if (!lang) return;
+
+            // Navigation
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                const keys = key.split('.');
+                let value = lang;
+                
+                for (const k of keys) {
+                    value = value[k];
+                    if (!value) break;
+                }
+                
+                if (value) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        if (element.hasAttribute('placeholder')) {
+                            element.placeholder = value;
+                        }
+                    } else {
+                        element.textContent = value;
+                    }
+                }
+            });
+        }
+
+        // FAQ Accordion functionality
+        function toggleFaq(button) {
+            const faqItem = button.closest('.faq-item');
+            const answer = faqItem.querySelector('.faq-answer');
+            const chevron = button.querySelector('.iconify');
+            const allItems = document.querySelectorAll('.faq-item');
+            
+            // Close all other FAQ items
+            allItems.forEach(item => {
+                if (item !== faqItem) {
+                    const otherAnswer = item.querySelector('.faq-answer');
+                    const otherChevron = item.querySelector('.iconify');
+                    otherAnswer.style.maxHeight = '0';
+                    otherChevron.style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            // Toggle current item
+            if (answer.style.maxHeight === '0px' || !answer.style.maxHeight) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                answer.style.maxHeight = '0';
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Open first FAQ by default on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstFaq = document.querySelector('.faq-item');
+            if (firstFaq) {
+                const answer = firstFaq.querySelector('.faq-answer');
+                const chevron = firstFaq.querySelector('.iconify');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                chevron.style.transform = 'rotate(180deg)';
+            }
+
+            // Scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections with fade-in class
+            document.querySelectorAll('.fade-in').forEach(element => {
+                observer.observe(element);
+            });
+        });
+
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const yOffset = -120;
+                const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+        }
+
+        function scrollToSectionCustom(sectionId, offset) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const y = section.getBoundingClientRect().top + window.pageYOffset + offset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+        }
+    </script>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 space-y-8 hero-fade-in">
+                    <div class="inline-flex items-center space-x-2 border border-neutral-200 rounded-full px-3 py-1 bg-neutral-50">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="text-xs font-medium text-neutral-600 uppercase tracking-wide" data-i18n="hero.badge">Available in Znojmo & Region</span>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter leading-[1.1] text-neutral-900" data-i18n="hero.title">
+                        Enter a world where every journey is an experience.
+                    </h1>
+                    <p class="text-lg md:text-xl text-neutral-500 max-w-lg leading-relaxed font-light" data-i18n="hero.subtitle">
+                        Premium luxury transportation at regular taxi prices. Professional, discreet, and reliable.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <button onclick="scrollToSectionCustom('contact', -80)" class="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-neutral-900 rounded-full hover:bg-neutral-800 transition-all" data-i18n="hero.bookYourRide">
+                            Book Your Ride
+                        </button>
+                        <button onclick="scrollToSectionCustom('services', -80)" class="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-neutral-900 bg-white border border-neutral-200 rounded-full hover:bg-neutral-50 transition-all" data-i18n="hero.viewServices">
+                            View Services
+                        </button>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 relative hero-fade-in" style="animation-delay: 0.3s;">
+                    <!-- Stylized Car Image Representation -->
+                    <div class="relative rounded-2xl aspect-[16/9] bg-neutral-100 shadow-2xl shadow-neutral-200/50 flex items-center justify-center">
+                        <img src="Coupe.png" alt="Mercedes GLE Coupe" class="object-contain w-[160%] h-[160%] hover:scale-105 transition-transform duration-700">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/30 to-transparent p-8 rounded-b-2xl overflow-hidden">
+                            <p class="text-white font-medium text-sm tracking-wide" data-i18n="hero.carModel">Mercedes-Benz GLE 400d Coupé</p>
+                        </div>
+                        <!-- Info Icon with Label -->
+                        <div class="absolute top-4 right-4 flex items-center gap-3 group">
+                            <span class="bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg text-sm font-medium text-neutral-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-i18n="hero.aboutCar">About The Car</span>
+                            <button onclick="scrollToSection('vehicle')" class="info-icon w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg cursor-pointer" aria-label="View vehicle details">
+                                <span class="iconify text-neutral-900" data-icon="lucide:info" data-width="20"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats / Trust Indicators -->
+    <section class="border-y border-neutral-100 bg-neutral-50/50 fade-in">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="flex flex-col space-y-2">
+                    <span class="iconify text-neutral-400" data-icon="lucide:shield-check" data-width="28"></span>
+                    <span class="text-sm font-semibold text-neutral-900" data-i18n="stats.safety">Safety First</span>
+                    <span class="text-xs text-neutral-500" data-i18n="stats.safetyDesc">Certified professional drivers</span>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <span class="iconify text-neutral-400" data-icon="lucide:clock" data-width="28"></span>
+                    <span class="text-sm font-semibold text-neutral-900" data-i18n="stats.punctual">Punctual</span>
+                    <span class="text-xs text-neutral-500" data-i18n="stats.punctualDesc">Always on time, every time</span>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <span class="iconify text-neutral-400" data-icon="lucide:wallet" data-width="28"></span>
+                    <span class="text-sm font-semibold text-neutral-900" data-i18n="stats.fairPricing">Fair Pricing</span>
+                    <span class="text-xs text-neutral-500" data-i18n="stats.fairPricingDesc">Luxury at taxi rates</span>
+                </div>
+                <div class="flex flex-col space-y-2">
+                    <span class="iconify text-neutral-400" data-icon="lucide:star" data-width="28"></span>
+                    <span class="text-sm font-semibold text-neutral-900" data-i18n="stats.topRated">Top Rated</span>
+                    <span class="text-xs text-neutral-500" data-i18n="stats.topRatedDesc">5-star client experience</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 fade-in">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 mb-4" data-i18n="services.title">Tailored Transportation Services</h2>
+                <p class="text-neutral-500 max-w-2xl text-lg font-light" data-i18n="services.subtitle">Whether for business or leisure, we provide a seamless travel solution tailored to your specific needs.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service Card 1 -->
+                <div class="group p-8 border border-neutral-200 rounded-2xl hover:border-neutral-300 hover:shadow-lg hover:shadow-neutral-100/50 transition-all duration-300 bg-white">
+                    <div class="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neutral-900 group-hover:text-white transition-colors">
+                        <span class="iconify" data-icon="lucide:crown" data-width="24" stroke-width="1.5"></span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 mb-3 tracking-tight" data-i18n="services.vipDriver">VIP Personal Driver</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed" data-i18n="services.vipDriverDesc">Discreet, professional service tailored to your individual schedule. Experience the freedom of having your own chauffeur.</p>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="group p-8 border border-neutral-200 rounded-2xl hover:border-neutral-300 hover:shadow-lg hover:shadow-neutral-100/50 transition-all duration-300 bg-white">
+                    <div class="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neutral-900 group-hover:text-white transition-colors">
+                        <span class="iconify" data-icon="lucide:plane-landing" data-width="24" stroke-width="1.5"></span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 mb-3 tracking-tight" data-i18n="services.airport">Airport Transfers</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed" data-i18n="services.airportDesc">Stress-free arrivals and departures to Vienna, Prague, or Brno. We track your flight to ensure timely pickup.</p>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="group p-8 border border-neutral-200 rounded-2xl hover:border-neutral-300 hover:shadow-lg hover:shadow-neutral-100/50 transition-all duration-300 bg-white">
+                    <div class="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neutral-900 group-hover:text-white transition-colors">
+                        <span class="iconify" data-icon="lucide:briefcase" data-width="24" stroke-width="1.5"></span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 mb-3 tracking-tight" data-i18n="services.business">Business & Corporate</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed" data-i18n="services.businessDesc">Punctual transport for meetings and executive travel. Maintain your professional image with our premium fleet.</p>
+                </div>
+
+                <!-- Service Card 4 -->
+                <div class="group p-8 border border-neutral-200 rounded-2xl hover:border-neutral-300 hover:shadow-lg hover:shadow-neutral-100/50 transition-all duration-300 bg-white">
+                    <div class="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neutral-900 group-hover:text-white transition-colors">
+                        <span class="iconify" data-icon="lucide:martini" data-width="24" stroke-width="1.5"></span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 mb-3 tracking-tight" data-i18n="services.nightlife">Nightlife & Events</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed" data-i18n="services.nightlifeDesc">Safe, reliable, and comfortable transport for afterparties, dinners, and nightlife. Enjoy the evening responsibly.</p>
+                </div>
+
+                <!-- Service Card 5 -->
+                <div class="group p-8 border border-neutral-200 rounded-2xl hover:border-neutral-300 hover:shadow-lg hover:shadow-neutral-100/50 transition-all duration-300 bg-white">
+                    <div class="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neutral-900 group-hover:text-white transition-colors">
+                        <span class="iconify" data-icon="lucide:map" data-width="24" stroke-width="1.5"></span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 mb-3 tracking-tight" data-i18n="services.tourist">Tourist Transportation</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed" data-i18n="services.touristDesc">Explore the Znojmo region with a driver who knows the local area. Wine tours, historical sites, and scenic routes.</p>
+                </div>
+
+                <!-- Service Card 6 -->
+                <div class="group p-8 border border-neutral-200 rounded-2xl hover:border-neutral-300 hover:shadow-lg hover:shadow-neutral-100/50 transition-all duration-300 bg-white">
+                    <div class="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-neutral-900 group-hover:text-white transition-colors">
+                        <span class="iconify" data-icon="lucide:users" data-width="24" stroke-width="1.5"></span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 mb-3 tracking-tight" data-i18n="services.privateMeetings">Private Meetings</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed" data-i18n="services.privateMeetingsDesc">Flexibility and class for private gatherings. We ensure absolute privacy and comfort for you and your guests.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-24 bg-white fade-in">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 mb-4" data-i18n="howItWorks.title">How It Works</h2>
+                <p class="text-neutral-500 max-w-2xl mx-auto text-lg font-light" data-i18n="howItWorks.subtitle">Three simple steps to luxury transportation</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+                <div class="text-center space-y-4">
+                    <div class="w-16 h-16 bg-neutral-900 text-white rounded-full flex items-center justify-center mx-auto font-semibold text-xl">1</div>
+                    <h3 class="text-lg font-semibold text-neutral-900" data-i18n="howItWorks.step1Title">Book Your Ride</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed max-w-xs mx-auto" data-i18n="howItWorks.step1Desc">Reserve online, by phone, or via email. Provide your pickup location, destination, and preferred time.</p>
+                </div>
+                <div class="text-center space-y-4">
+                    <div class="w-16 h-16 bg-neutral-900 text-white rounded-full flex items-center justify-center mx-auto font-semibold text-xl">2</div>
+                    <h3 class="text-lg font-semibold text-neutral-900" data-i18n="howItWorks.step2Title">Receive Confirmation</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed max-w-xs mx-auto" data-i18n="howItWorks.step2Desc">Get instant booking confirmation with all details. We'll contact you if any questions arise.</p>
+                </div>
+                <div class="text-center space-y-4">
+                    <div class="w-16 h-16 bg-neutral-900 text-white rounded-full flex items-center justify-center mx-auto font-semibold text-xl">3</div>
+                    <h3 class="text-lg font-semibold text-neutral-900" data-i18n="howItWorks.step3Title">Enjoy Your Journey</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed max-w-xs mx-auto" data-i18n="howItWorks.step3Desc">Relax in premium comfort while we handle the drive. Professional, punctual, and discreet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vehicle Showcase -->
+    <section id="vehicle" class="py-24 bg-neutral-50 border-y border-neutral-100 fade-in">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="space-y-4">
+                         <!-- Images from Unsplash resembling Mercedes Interior/Exterior -->
+                        <img src="image-car1.jpg" class="rounded-xl object-cover h-[272px] w-full shadow-sm" alt="Luxury Car Interior">
+                        <img src="image-car2.jpg" class="rounded-xl object-cover h-[272px] w-full shadow-sm" alt="Mercedes Exterior Detail">
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 space-y-6">
+                    <div class="text-xs font-semibold tracking-widest text-neutral-500 uppercase" data-i18n="vehicle.label">Our Fleet</div>
+                    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900" data-i18n="vehicle.title">Mercedes-Benz GLE 400d Coupé</h2>
+                    <p class="text-lg text-neutral-500 font-light leading-relaxed" data-i18n="vehicle.description">
+                        Experience the pinnacle of automotive engineering. Our primary vehicle combines the sporty elegance of a coupé with the comfort and safety of a premium SUV.
+                    </p>
+                    <ul class="space-y-4 pt-4">
+                        <li class="flex items-center space-x-3 text-neutral-700">
+                            <span class="iconify text-neutral-900" data-icon="lucide:check" data-width="18"></span>
+                            <span class="text-sm" data-i18n="vehicle.feature1">Premium leather interior with ample legroom</span>
+                        </li>
+                        <li class="flex items-center space-x-3 text-neutral-700">
+                            <span class="iconify text-neutral-900" data-icon="lucide:check" data-width="18"></span>
+                            <span class="text-sm" data-i18n="vehicle.feature2">Advanced safety features and all-wheel drive</span>
+                        </li>
+                        <li class="flex items-center space-x-3 text-neutral-700">
+                            <span class="iconify text-neutral-900" data-icon="lucide:check" data-width="18"></span>
+                            <span class="text-sm" data-i18n="vehicle.feature3">Climate control and sound insulation for quiet journeys</span>
+                        </li>
+                         <li class="flex items-center space-x-3 text-neutral-700">
+                            <span class="iconify text-neutral-900" data-icon="lucide:check" data-width="18"></span>
+                            <span class="text-sm" data-i18n="vehicle.feature4">Discreet appearance for private travel</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety & Comfort Standards -->
+    <section class="py-24 bg-white fade-in">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 mb-4" data-i18n="safety.title">Safety & Comfort Standards</h2>
+                <p class="text-neutral-500 max-w-2xl mx-auto text-lg font-light" data-i18n="safety.subtitle">Your safety and comfort are our top priorities</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="p-6 border border-neutral-200 rounded-2xl bg-white space-y-4">
+                    <div class="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center">
+                        <span class="iconify text-neutral-900" data-icon="lucide:sparkles" data-width="24" stroke-width="1.5"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-neutral-900" data-i18n="safety.clean">Regularly Cleaned</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed" data-i18n="safety.cleanDesc">Vehicle thoroughly cleaned and inspected before every ride</p>
+                </div>
+
+                <div class="p-6 border border-neutral-200 rounded-2xl bg-white space-y-4">
+                    <div class="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center">
+                        <span class="iconify text-neutral-900" data-icon="lucide:shield-check" data-width="24" stroke-width="1.5"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-neutral-900" data-i18n="safety.professional">Professional Standards</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed" data-i18n="safety.professionalDesc">Licensed driver with defensive driving certification</p>
+                </div>
+
+                <div class="p-6 border border-neutral-200 rounded-2xl bg-white space-y-4">
+                    <div class="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center">
+                        <span class="iconify text-neutral-900" data-icon="lucide:lock" data-width="24" stroke-width="1.5"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-neutral-900" data-i18n="safety.privacy">Discretion & Privacy</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed" data-i18n="safety.privacyDesc">Complete confidentiality for all business and private journeys</p>
+                </div>
+
+                <div class="p-6 border border-neutral-200 rounded-2xl bg-white space-y-4">
+                    <div class="w-12 h-12 bg-neutral-50 rounded-xl flex items-center justify-center">
+                        <span class="iconify text-neutral-900" data-icon="lucide:thermometer" data-width="24" stroke-width="1.5"></span>
+                    </div>
+                    <h3 class="text-base font-semibold text-neutral-900" data-i18n="safety.comfort">Climate Comfort</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed" data-i18n="safety.comfortDesc">Quiet ride with premium sound insulation and climate control</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-24 fade-in">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-16">
+             <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 mb-4" data-i18n="whyChoose.title">Why Choose VIP Znojmo</h2>
+             <p class="text-neutral-500 max-w-2xl mx-auto" data-i18n="whyChoose.subtitle">We bridge the gap between standard taxi services and high-end chauffeurs.</p>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+            <div class="text-center space-y-4">
+                <div class="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto text-neutral-900">
+                    <span class="iconify" data-icon="lucide:gem" data-width="32" stroke-width="1.5"></span>
+                </div>
+                    <h3 class="text-lg font-semibold text-neutral-900" data-i18n="whyChoose.luxury">Luxury Without Extra Cost</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed max-w-xs mx-auto" data-i18n="whyChoose.luxuryDesc">We believe high standards shouldn't come with a high premium. Enjoy the GLE Coupé at regular market rates.</p>
+            </div>
+            <div class="text-center space-y-4">
+                <div class="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto text-neutral-900">
+                    <span class="iconify" data-icon="lucide:map-pin" data-width="32" stroke-width="1.5"></span>
+                </div>
+                    <h3 class="text-lg font-semibold text-neutral-900" data-i18n="whyChoose.local">Local Expertise</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed max-w-xs mx-auto" data-i18n="whyChoose.localDesc">Based in Znojmo on Pražská Street, we know every shortcut, scenic route, and hidden gem in the region.</p>
+            </div>
+            <div class="text-center space-y-4">
+                <div class="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto text-neutral-900">
+                    <span class="iconify" data-icon="lucide:user-check" data-width="32" stroke-width="1.5"></span>
+                </div>
+                    <h3 class="text-lg font-semibold text-neutral-900" data-i18n="whyChoose.professional">Professional Driver</h3>
+                    <p class="text-sm text-neutral-500 leading-relaxed max-w-xs mx-auto" data-i18n="whyChoose.professionalDesc">More than just a driver. Your personal assistant on the road, ensuring safety, discretion, and comfort.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About the Driver -->
+    <section class="py-24 bg-neutral-50 border-y border-neutral-100 fade-in">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <div class="text-xs font-semibold tracking-widest text-neutral-500 uppercase" data-i18n="about.label">About Us</div>
+                    <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900" data-i18n="about.title">More Than a Driver — A Professional Partner</h2>
+                    <p class="text-lg text-neutral-500 font-light leading-relaxed" data-i18n="about.intro">
+                        With years of experience in premium transportation, we understand that every journey matters. Based in Znojmo, we combine local expertise with professional service standards.
+                    </p>
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="mt-1 bg-neutral-100 p-2 rounded-lg">
+                                <span class="iconify text-neutral-900" data-icon="lucide:award" data-width="20"></span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-neutral-900" data-i18n="about.point1Title">Professionalism</p>
+                                <p class="text-sm text-neutral-500" data-i18n="about.point1Desc">Licensed, certified, and committed to excellence in every detail</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="mt-1 bg-neutral-100 p-2 rounded-lg">
+                                <span class="iconify text-neutral-900" data-icon="lucide:eye-off" data-width="20"></span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-neutral-900" data-i18n="about.point2Title">Discretion</p>
+                                <p class="text-sm text-neutral-500" data-i18n="about.point2Desc">Your privacy is paramount — business or personal, we maintain complete confidentiality</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="mt-1 bg-neutral-100 p-2 rounded-lg">
+                                <span class="iconify text-neutral-900" data-icon="lucide:map" data-width="20"></span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-neutral-900" data-i18n="about.point3Title">Local Knowledge</p>
+                                <p class="text-sm text-neutral-500" data-i18n="about.point3Desc">Deep understanding of Znojmo and surrounding regions, including shortcuts and scenic routes</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="mt-1 bg-neutral-100 p-2 rounded-lg">
+                                <span class="iconify text-neutral-900" data-icon="lucide:clock" data-width="20"></span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-neutral-900" data-i18n="about.point4Title">Experience</p>
+                                <p class="text-sm text-neutral-500" data-i18n="about.point4Desc">Years of providing reliable transportation for business executives and private clients</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-xl">
+                    <img src="professional-driver.avif" alt="Professional Driver" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 bg-neutral-50/50 border-t border-neutral-100 fade-in">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-12">
+                 <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 mb-4" data-i18n="pricing.title">Transparent Pricing</h2>
+                 <p class="text-neutral-500" data-i18n="pricing.subtitle">No hidden fees. Luxury service at standard rates.</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl border border-neutral-200 overflow-hidden shadow-sm">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-neutral-50 border-b border-neutral-200">
+                               <th class="px-6 py-4 text-xs font-semibold text-neutral-500 uppercase tracking-wider" data-i18n="pricing.tableService">Service Type</th>
+                               <th class="px-6 py-4 text-xs font-semibold text-neutral-500 uppercase tracking-wider text-right" data-i18n="pricing.tableEstimate">Estimate</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-neutral-100">
+                        <tr>
+                               <td class="px-6 py-5 text-sm font-medium text-neutral-900" data-i18n="pricing.cityTransfer">City Transfer (Znojmo)</td>
+                               <td class="px-6 py-5 text-sm text-neutral-600 text-right" data-i18n="pricing.cityTransferPrice">Standard Taxi Rate</td>
+                        </tr>
+                        <tr>
+                               <td class="px-6 py-5 text-sm font-medium text-neutral-900" data-i18n="pricing.vienna">Znojmo → Vienna Airport</td>
+                               <td class="px-6 py-5 text-sm text-neutral-600 text-right" data-i18n="pricing.viennaPrice">Contact for Quote</td>
+                        </tr>
+                        <tr>
+                               <td class="px-6 py-5 text-sm font-medium text-neutral-900" data-i18n="pricing.prague">Znojmo → Prague Airport</td>
+                               <td class="px-6 py-5 text-sm text-neutral-600 text-right" data-i18n="pricing.praguePrice">Contact for Quote</td>
+                        </tr>
+                        <tr>
+                               <td class="px-6 py-5 text-sm font-medium text-neutral-900" data-i18n="pricing.brno">Znojmo → Brno</td>
+                               <td class="px-6 py-5 text-sm text-neutral-600 text-right" data-i18n="pricing.brnoPrice">Contact for Quote</td>
+                        </tr>
+                        <tr>
+                               <td class="px-6 py-5 text-sm font-medium text-neutral-900" data-i18n="pricing.hourly">Hourly Rental (Personal Driver)</td>
+                               <td class="px-6 py-5 text-sm text-neutral-600 text-right" data-i18n="pricing.hourlyPrice">From 500 CZK / hr</td>
+                        </tr>
+                        <tr>
+                               <td class="px-6 py-5 text-sm font-medium text-neutral-900" data-i18n="pricing.events">Events & Weddings</td>
+                               <td class="px-6 py-5 text-sm text-neutral-600 text-right" data-i18n="pricing.eventsPrice">Custom Package</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                  <p class="mt-4 text-xs text-neutral-400 text-center" data-i18n="pricing.disclaimer">Prices are indicative. Final price confirmed upon booking.</p>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 fade-in">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-2xl font-semibold tracking-tight text-neutral-900 mb-12" data-i18n="testimonials.title">Client Experiences</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="p-8 bg-neutral-50 rounded-2xl">
+                    <div class="flex space-x-1 mb-4 text-neutral-900">
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                    </div>
+                    <p class="text-sm text-neutral-600 italic mb-6" data-i18n="testimonials.review1">"Incredibly professional. The car was spotless and the drive to Vienna was smooth. Felt like a VIP but didn't pay a premium."</p>
+                    <p class="text-xs font-semibold text-neutral-900 uppercase tracking-wider" data-i18n="testimonials.author1">Jan N.</p>
+                </div>
+                <!-- Review 2 -->
+                <div class="p-8 bg-neutral-50 rounded-2xl">
+                    <div class="flex space-x-1 mb-4 text-neutral-900">
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                    </div>
+                    <p class="text-sm text-neutral-600 italic mb-6" data-i18n="testimonials.review2">"Perfect for our business partners visiting Znojmo. The driver was punctual and handled everything with class."</p>
+                    <p class="text-xs font-semibold text-neutral-900 uppercase tracking-wider" data-i18n="testimonials.author2">Corporate Client</p>
+                </div>
+                <!-- Review 3 -->
+                <div class="p-8 bg-neutral-50 rounded-2xl">
+                    <div class="flex space-x-1 mb-4 text-neutral-900">
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                        <span class="iconify" data-icon="lucide:star" data-width="16" fill="currentColor"></span>
+                    </div>
+                    <p class="text-sm text-neutral-600 italic mb-6" data-i18n="testimonials.review3">"Used the service for a late-night pickup after a wedding. Safe, reliable, and extremely comfortable."</p>
+                    <p class="text-xs font-semibold text-neutral-900 uppercase tracking-wider" data-i18n="testimonials.author3">Martina K.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-white fade-in">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 mb-4" data-i18n="faq.title">Frequently Asked Questions</h2>
+                <p class="text-neutral-500 text-lg font-light" data-i18n="faq.subtitle">Everything you need to know about our service</p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="faq-item border border-neutral-200 rounded-2xl bg-white hover:border-neutral-300 transition-colors">
+                    <button class="faq-question w-full flex items-center justify-between p-8 text-left" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-neutral-900" data-i18n="faq.q1">Do you operate 24/7?</h3>
+                        <span class="iconify text-neutral-900 transition-transform duration-300" data-icon="lucide:chevron-down" data-width="24"></span>
+                    </button>
+                    <div class="faq-answer max-h-96 overflow-hidden transition-all duration-300">
+                        <p class="px-8 pb-8 text-sm text-neutral-500 leading-relaxed" data-i18n="faq.a1">Yes, we provide transportation services around the clock. Whether it's an early morning airport transfer or a late-night pickup, we're available whenever you need us.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-neutral-200 rounded-2xl bg-white hover:border-neutral-300 transition-colors">
+                    <button class="faq-question w-full flex items-center justify-between p-8 text-left" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-neutral-900" data-i18n="faq.q2">Can I book in advance?</h3>
+                        <span class="iconify text-neutral-900 transition-transform duration-300" data-icon="lucide:chevron-down" data-width="24"></span>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-8 pb-8 text-sm text-neutral-500 leading-relaxed" data-i18n="faq.a2">Absolutely. We recommend booking in advance for important trips, especially airport transfers. You can reserve your ride days or even weeks ahead to ensure availability.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-neutral-200 rounded-2xl bg-white hover:border-neutral-300 transition-colors">
+                    <button class="faq-question w-full flex items-center justify-between p-8 text-left" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-neutral-900" data-i18n="faq.q3">Is pricing fixed or by meter?</h3>
+                        <span class="iconify text-neutral-900 transition-transform duration-300" data-icon="lucide:chevron-down" data-width="24"></span>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-8 pb-8 text-sm text-neutral-500 leading-relaxed" data-i18n="faq.a3">For standard city transfers within Znojmo, we follow regular taxi rates. For longer distances and airport transfers, we provide fixed quotes upon booking for complete transparency.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-neutral-200 rounded-2xl bg-white hover:border-neutral-300 transition-colors">
+                    <button class="faq-question w-full flex items-center justify-between p-8 text-left" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-neutral-900" data-i18n="faq.q4">Do you accept business clients?</h3>
+                        <span class="iconify text-neutral-900 transition-transform duration-300" data-icon="lucide:chevron-down" data-width="24"></span>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-8 pb-8 text-sm text-neutral-500 leading-relaxed" data-i18n="faq.a4">Yes, we specialize in corporate transportation. We offer invoicing for companies, regular business contracts, and dedicated service for executive travel needs.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-neutral-200 rounded-2xl bg-white hover:border-neutral-300 transition-colors">
+                    <button class="faq-question w-full flex items-center justify-between p-8 text-left" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-neutral-900" data-i18n="faq.q5">Can you provide airport transfers at night?</h3>
+                        <span class="iconify text-neutral-900 transition-transform duration-300" data-icon="lucide:chevron-down" data-width="24"></span>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-8 pb-8 text-sm text-neutral-500 leading-relaxed" data-i18n="faq.a5">Yes, we monitor flight schedules and provide pickup services regardless of arrival time. We track delays to ensure we're there when you land, day or night.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-neutral-200 rounded-2xl bg-white hover:border-neutral-300 transition-colors">
+                    <button class="faq-question w-full flex items-center justify-between p-8 text-left" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-neutral-900" data-i18n="faq.q6">How many passengers fit in the vehicle?</h3>
+                        <span class="iconify text-neutral-900 transition-transform duration-300" data-icon="lucide:chevron-down" data-width="24"></span>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-8 pb-8 text-sm text-neutral-500 leading-relaxed" data-i18n="faq.a6">The Mercedes-Benz GLE Coupé comfortably seats up to 4 passengers with luggage. For larger groups, please contact us to discuss alternative arrangements.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-neutral-200 rounded-2xl bg-white hover:border-neutral-300 transition-colors">
+                    <button class="faq-question w-full flex items-center justify-between p-8 text-left" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-neutral-900" data-i18n="faq.q7">What payment methods do you accept?</h3>
+                        <span class="iconify text-neutral-900 transition-transform duration-300" data-icon="lucide:chevron-down" data-width="24"></span>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-8 pb-8 text-sm text-neutral-500 leading-relaxed" data-i18n="faq.a7">We accept cash, credit cards, and bank transfers. For corporate clients, we offer invoicing with flexible payment terms.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item border border-neutral-200 rounded-2xl bg-white hover:border-neutral-300 transition-colors">
+                    <button class="faq-question w-full flex items-center justify-between p-8 text-left" onclick="toggleFaq(this)">
+                        <h3 class="text-lg font-semibold text-neutral-900" data-i18n="faq.q8">Can I request specific amenities?</h3>
+                        <span class="iconify text-neutral-900 transition-transform duration-300" data-icon="lucide:chevron-down" data-width="24"></span>
+                    </button>
+                    <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300">
+                        <p class="px-8 pb-8 text-sm text-neutral-500 leading-relaxed" data-i18n="faq.a8">Yes, please let us know your preferences when booking. We can arrange child seats, specific climate settings, or any other special requirements you may have.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 border-t border-neutral-100 fade-in">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div>
+                            <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 mb-4" data-i18n="contact.title">Reserve Your Ride</h2>
+                            <p class="text-neutral-500 font-light text-lg" data-i18n="contact.subtitle">Book instantly online or contact us directly for custom arrangements. We are here to solve your transportation needs.</p>
+                    </div>
+
+                    <div class="space-y-6 pt-4">
+                        <div class="flex items-start space-x-4">
+                            <div class="mt-1 bg-neutral-100 p-2 rounded-lg">
+                                <span class="iconify text-neutral-900" data-icon="lucide:phone" data-width="20"></span>
+                            </div>
+                            <div>
+                                    <p class="text-sm font-medium text-neutral-900" data-i18n="contact.phone">Phone</p>
+                                <p class="text-neutral-500 hover:text-neutral-900 transition-colors cursor-pointer">+420 123 456 789</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="mt-1 bg-neutral-100 p-2 rounded-lg">
+                                <span class="iconify text-neutral-900" data-icon="lucide:mail" data-width="20"></span>
+                            </div>
+                            <div>
+                                  <p class="text-sm font-medium text-neutral-900" data-i18n="contact.email">Email</p>
+                                <p class="text-neutral-500 hover:text-neutral-900 transition-colors cursor-pointer">booking@vipznojmo.cz</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="mt-1 bg-neutral-100 p-2 rounded-lg">
+                                <span class="iconify text-neutral-900" data-icon="lucide:map-pin" data-width="20"></span>
+                            </div>
+                            <div>
+                                  <p class="text-sm font-medium text-neutral-900" data-i18n="contact.location">Location</p>
+                                  <p class="text-neutral-500" data-i18n="contact.locationAddress">Pražská Street, Znojmo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="bg-neutral-50 p-8 rounded-3xl">
+                    <form class="space-y-6">
+                        <div class="space-y-4">
+                            <div>
+                                  <label for="name" class="block text-xs font-semibold text-neutral-700 uppercase tracking-wide mb-2" data-i18n="contact.formName">Full Name</label>
+                                  <input type="text" id="name" class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:border-transparent transition-all" data-i18n="contact.formNamePlaceholder" placeholder="John Doe">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                     <label for="phone" class="block text-xs font-semibold text-neutral-700 uppercase tracking-wide mb-2" data-i18n="contact.formPhone">Phone</label>
+                                     <input type="tel" id="phone" class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:border-transparent transition-all" data-i18n="contact.formPhonePlaceholder" placeholder="+420 ...">
+                                </div>
+                                <div>
+                                     <label for="email" class="block text-xs font-semibold text-neutral-700 uppercase tracking-wide mb-2" data-i18n="contact.formEmail">Email</label>
+                                     <input type="email" id="email" class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:border-transparent transition-all" data-i18n="contact.formEmailPlaceholder" placeholder="john@example.com">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                     <label for="pickup" class="block text-xs font-semibold text-neutral-700 uppercase tracking-wide mb-2" data-i18n="contact.formPickup">Pickup</label>
+                                     <input type="text" id="pickup" class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:border-transparent transition-all" data-i18n="contact.formPickupPlaceholder" placeholder="Address">
+                                </div>
+                                <div>
+                                     <label for="destination" class="block text-xs font-semibold text-neutral-700 uppercase tracking-wide mb-2" data-i18n="contact.formDestination">Destination</label>
+                                     <input type="text" id="destination" class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:border-transparent transition-all" data-i18n="contact.formDestinationPlaceholder" placeholder="Address">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                        <label for="date" class="block text-xs font-semibold text-neutral-700 uppercase tracking-wide mb-2" data-i18n="contact.formDate">Date</label>
+                                    <input type="date" id="date" class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:border-transparent transition-all">
+                                </div>
+                                <div>
+                                        <label for="time" class="block text-xs font-semibold text-neutral-700 uppercase tracking-wide mb-2" data-i18n="contact.formTime">Time</label>
+                                    <input type="time" id="time" class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:border-transparent transition-all">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="notes" class="block text-xs font-semibold text-neutral-700 uppercase tracking-wide mb-2" data-i18n="contact.formNotes">Special Requests</label>
+                                <textarea id="notes" rows="3" class="w-full px-4 py-3 bg-white border border-neutral-200 rounded-lg text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-200 focus:border-transparent transition-all resize-none" data-i18n="contact.formNotesPlaceholder" placeholder="Flight number, child seat needed, etc."></textarea>
+                            </div>
+                        </div>
+
+                        <button type="button" class="w-full py-4 bg-neutral-900 text-white font-medium rounded-lg hover:bg-neutral-800 transition-colors focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2" data-i18n="contact.formSubmit">
+                            Confirm Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-neutral-100 py-14">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-10 items-start">
+                <div class="space-y-4">
+                    <p class="text-lg font-bold tracking-tighter text-neutral-900 uppercase">VIP<span class="text-neutral-400">Znojmo</span></p>
+                    <p class="text-xs text-neutral-400" data-i18n="footer.copyright">© 2023 VIP Luxury Transport. All rights reserved.</p>
+                    <div class="flex items-center space-x-4 pt-2">
+                        <a href="#" class="text-neutral-400 hover:text-neutral-900 transition-colors">
+                            <span class="iconify" data-icon="lucide:facebook" data-width="20"></span>
+                        </a>
+                        <a href="#" class="text-neutral-400 hover:text-neutral-900 transition-colors">
+                            <span class="iconify" data-icon="lucide:instagram" data-width="20"></span>
+                        </a>
+                        <a href="#" class="text-neutral-400 hover:text-neutral-900 transition-colors">
+                            <span class="iconify" data-icon="lucide:mail" data-width="20"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="text-sm font-semibold text-neutral-900 uppercase tracking-wide" data-i18n="footer.exploreTitle">Explore</p>
+                    <div class="flex flex-col space-y-3 text-sm text-neutral-500">
+                        <a href="#services" class="hover:text-neutral-900 transition-colors" data-i18n="footer.exploreServices">Services</a>
+                        <a href="#vehicle" class="hover:text-neutral-900 transition-colors" data-i18n="footer.exploreVehicle">Vehicle</a>
+                        <a href="#pricing" class="hover:text-neutral-900 transition-colors" data-i18n="footer.explorePricing">Pricing</a>
+                        <a href="#contact" class="hover:text-neutral-900 transition-colors" data-i18n="footer.exploreContact">Contact</a>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="text-sm font-semibold text-neutral-900 uppercase tracking-wide" data-i18n="footer.servicesTitle">Services</p>
+                    <div class="flex flex-col space-y-3 text-sm text-neutral-500">
+                        <a href="#services" class="hover:text-neutral-900 transition-colors" data-i18n="footer.servicesVip">VIP Personal Driver</a>
+                        <a href="#services" class="hover:text-neutral-900 transition-colors" data-i18n="footer.servicesAirport">Airport Transfers</a>
+                        <a href="#services" class="hover:text-neutral-900 transition-colors" data-i18n="footer.servicesBusiness">Business & Corporate</a>
+                        <a href="#services" class="hover:text-neutral-900 transition-colors" data-i18n="footer.servicesEvents">Events & Limited Rides</a>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <p class="text-sm font-semibold text-neutral-900 uppercase tracking-wide" data-i18n="footer.newsletterTitle">Newsletter & Offers</p>
+                    <p class="text-sm text-neutral-500" data-i18n="footer.newsletterSubtitle">Get sales, seasonal specials, and limited-ride alerts.</p>
+                    <div class="flex flex-col space-y-3">
+                        <div class="flex items-center rounded-xl border border-neutral-200 overflow-hidden bg-white">
+                            <input type="email" class="w-full px-4 py-3 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none" data-i18n="footer.newsletterPlaceholder" placeholder="Enter your email">
+                            <button class="px-4 py-3 text-sm font-semibold text-white bg-neutral-900 hover:bg-neutral-800 transition-colors" data-i18n="footer.newsletterCta">Subscribe</button>
+                        </div>
+                        <p class="text-xs text-neutral-400" data-i18n="footer.newsletterNote">No spam. Only curated offers and limited-availability rides.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
